@@ -1,9 +1,9 @@
-﻿@page "/ContactDetail"
+﻿@page "/contacts"
 @inject IContactDetailService _contactService
 @using MyContacts.Models
 
 <h3>Contacts</h3>
-
+<a href="contacts/upsert" class="btn btn-primary">Add a new contact</a>
 <table class="table table-striped">
 	<thead>
 		<tr>
