@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyContacts.Client", "MyContacts.Client\MyContacts.Client.csproj", "{F31734A1-1EB6-480D-9721-3ED19F47912E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyContacts.Client", "MyContacts.Client\MyContacts.Client.csproj", "{F31734A1-1EB6-480D-9721-3ED19F47912E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyContacts.Server", "MyContacts.Server\MyContacts.Server.csproj", "{6CCA6618-7BA0-4B85-B2AE-AF1365DAD330}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyContacts.Server", "MyContacts.Server\MyContacts.Server.csproj", "{6CCA6618-7BA0-4B85-B2AE-AF1365DAD330}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyContacts.Business", "MyContacts.Business\MyContacts.Business.csproj", "{E45FEDC0-4D39-4863-9429-7EC1B0D1B14C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyContacts.Business", "MyContacts.Business\MyContacts.Business.csproj", "{E45FEDC0-4D39-4863-9429-7EC1B0D1B14C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyContacts.DataAccess", "MyContacts.DataAccess\MyContacts.DataAccess.csproj", "{EA4C448F-98B5-4285-9247-B681E5A456F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyContacts.DataAccess", "MyContacts.DataAccess\MyContacts.DataAccess.csproj", "{EA4C448F-98B5-4285-9247-B681E5A456F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyContacts.Models", "MyContacts.Models\MyContacts.Models.csproj", "{26FF0F44-885C-45F1-9B6A-90DC32B79A2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyContacts.Models", "MyContacts.Models\MyContacts.Models.csproj", "{26FF0F44-885C-45F1-9B6A-90DC32B79A2C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyContacts.DataAccess\MyContacts.DataAccess.csproj" />
+    <ProjectReference Include="..\MyContacts.Models\MyContacts.Models.csproj" />
+  </ItemGroup>
+
 </Project>

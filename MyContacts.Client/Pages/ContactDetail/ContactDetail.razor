@@ -1,0 +1,41 @@
+﻿@page "/ContactDetail"
+@inject IContactDetailService _contactService
+@using MyContacts.Models
+
+<h3>Contacts</h3>
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">User Name</th>
+			<th scope="col">First Name</th>
+			<th scope="col">Last Name</th>
+			<th>Notes</th>
+		</tr>
+
+	</thead>
+	<tbody>
+		@if (Contacts != null)
+		{
+			@foreach(var detail in Contacts)
+			{
+				<tr>
+					<td scope="row">@detail.UserName</td>
+					<td>1111</td>
+					<td>2222</td>
+					<td><a href="/details/@detail.UserName">Read Notes...</a></td>
+				</tr>
+			}	
+		}
+</tbody>
+</table>
+
+
+@code {
+	public IEnumerable<ContactDetailDTO> Contacts = new List<ContactDetailDTO>();
+
+	protected override async Task OnInitializedAsync()
+	{
+		Contacts = await _contactService.GetAll();
+	}
+}
