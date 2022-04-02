@@ -22,20 +22,20 @@ namespace MyContacts.Server.Controllers
             return Ok(await _detailRepository.GetAll());
         }
 
-        [HttpGet("{userName}")]
-        public async Task<IActionResult> Get(string userName)
+        [HttpGet("{ID:int}")]
+        public async Task<IActionResult> Get(int? ID)
         {
-            if (userName == null)
+            if (ID == null)
             {
                 return BadRequest(new ErrorModelDTO()
                 {
-                    ErrorMessage = "Invalid Username",
+                    ErrorMessage = "Invalid ID",
                     StatusCode = StatusCodes.Status400BadRequest
                 });
             }
 
-            var product = await _detailRepository.Get(userName);
-            if (product == null)
+            var contact = await _detailRepository.Get(ID.Value);
+            if (contact == null)
             {
                 return BadRequest(new ErrorModelDTO()
                 {
@@ -44,7 +44,21 @@ namespace MyContacts.Server.Controllers
                 });
             }
 
-            return Ok(product);
+            return Ok(contact);
+        }
+
+        [HttpPost("Create")]
+        public async Task<IActionResult> Create([FromBody] ContactDetailDTO objDTO)
+        {
+            var result = await _detailRepository.Create(objDTO);
+            return Ok(result);
+        }
+
+        [HttpPost("{objDTO}")]
+        public async Task<IActionResult> Edit([FromBody] ContactDetailDTO objDTO)
+        {
+            var result = await _detailRepository.Edit(objDTO);
+            return Ok(result);
         }
     }
 }

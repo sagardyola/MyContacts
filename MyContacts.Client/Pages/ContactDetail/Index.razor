@@ -3,39 +3,61 @@
 @using MyContacts.Models
 
 <h3>Contacts</h3>
-<a href="contacts/upsert" class="btn btn-primary">Add a new contact</a>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th scope="col">User Name</th>
-			<th scope="col">First Name</th>
-			<th scope="col">Last Name</th>
-			<th>Notes</th>
-		</tr>
+<a href="contacts/create" class="btn btn-primary">Add a new contact</a>
 
-	</thead>
-	<tbody>
-		@if (Contacts != null)
-		{
-			@foreach(var detail in Contacts)
-			{
-				<tr>
-					<td scope="row">@detail.UserName</td>
-					<td>1111</td>
-					<td>2222</td>
-					<td><a href="/details/@detail.UserName">Read Notes...</a></td>
-				</tr>
-			}	
-		}
-</tbody>
-</table>
+@if (Contacts.Any())
+{
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">User Name</th>
+				<th scope="col">First Name</th>
+				<th scope="col">Last Name</th>
+				<th scope="col">Notes</th>
+				<th scope="col">Actions</th>
+			</tr>
+			</thead>
+			<tbody>
+				@foreach(var detail in Contacts)
+				{
+					<tr>
+						<td scope="row">@detail.UserName</td>
+						<td>@detail.FirstName</td>
+						<td>@detail.LastName</td>
+						<td><a href="/details/@detail.UserName">Read Notes...</a></td>
+						<td>
+							<NavLink href="@($"contacts/edit/{detail.ID}")" class="btn btn-primary">Edit</NavLink>
+						</td>
+					</tr>
+				}	
+			</tbody>
+	</table>
+}
+else
+{
+	if (IsLoading)
+	{
+		<h4>Loading</h4>
+	}
+	else
+	{
+		<h4>No records found</h4>
+	}
+}
 
 
 @code {
 	public IEnumerable<ContactDetailDTO> Contacts = new List<ContactDetailDTO>();
+	public bool IsLoading { get; set; } = true;
 
 	protected override async Task OnInitializedAsync()
 	{
+		await Task.Run(LoadContacts);
+	}
+
+	private async Task LoadContacts()
+	{
 		Contacts = await _contactService.GetAll();
+		IsLoading = false;
 	}
 }

@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyContacts.Business\MyContacts.Business.csproj" />
     <ProjectReference Include="..\MyContacts.DataAccess\MyContacts.DataAccess.csproj" />
     <ProjectReference Include="..\MyContacts.Models\MyContacts.Models.csproj" />
   </ItemGroup>

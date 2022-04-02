@@ -2,6 +2,8 @@
 using MyContacts.DataAccess;
 using MyContacts.Models;
 using Newtonsoft.Json;
+using System.Net.Http.Json;
+using System.Text;
 
 namespace MyContacts.Client.Service
 {
@@ -15,11 +17,7 @@ namespace MyContacts.Client.Service
         {
             _httpClient = httpClient;
             _configuration = configuration;
-            BaseServerUrl = _configuration.GetSection("BaseServerUrl").Value;
-        }
-        public Task<ContactDetailDTO> Create(ContactDetail objDTO)
-        {
-            throw new NotImplementedException();
+            //BaseServerUrl = _configuration.GetSection("BaseServerUrl").Value;
         }
 
         public Task<int> Delete(int id)
@@ -27,9 +25,9 @@ namespace MyContacts.Client.Service
             throw new NotImplementedException();
         }
 
-        public async Task<ContactDetailDTO> Get(string userName)
+        public async Task<ContactDetailDTO> Get(int ID)
         {
-            var response = await _httpClient.GetAsync($"/api/ContactDetail/{userName}");
+            var response = await _httpClient.GetAsync($"api/ContactDetail/{ID}");
             var content = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -45,7 +43,7 @@ namespace MyContacts.Client.Service
 
         public async Task<IEnumerable<ContactDetailDTO>> GetAll()
         {
-            var response = await _httpClient.GetAsync("/api/ContactDetail");
+            var response = await _httpClient.GetAsync("api/ContactDetail");
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
@@ -57,9 +55,36 @@ namespace MyContacts.Client.Service
             return new List<ContactDetailDTO>();
         }
 
-        public Task<ContactDetailDTO> Update(ContactDetailDTO objDTO)
+        public async Task<ContactDetailDTO> Create(ContactDetailDTO objDTO)
         {
-            throw new NotImplementedException();
+            var content = JsonConvert.SerializeObject(objDTO);
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("api/contactdetail/create", bodyContent);
+            string responseResult = response.Content.ReadAsStringAsync().Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = JsonConvert.DeserializeObject<ContactDetailDTO>(responseResult);
+                return result;
+            }
+
+            return new ContactDetailDTO();
+        }
+
+        public async Task<ContactDetailDTO> Edit(ContactDetailDTO objDTO)
+        {
+            var content = JsonConvert.SerializeObject(objDTO);
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("api/contactdetail/{objDTO}", bodyContent);
+            string responseResult = response.Content.ReadAsStringAsync().Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = JsonConvert.DeserializeObject<ContactDetailDTO>(responseResult);
+                return result;
+            }
+
+            return new ContactDetailDTO();
         }
     }
 }
