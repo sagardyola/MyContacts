@@ -1,7 +1,10 @@
 ﻿@page "/contacts"
 @inject IContactDetailService _contactService
+@inject IJSRuntime _jsRuntime
+
 @using MyContacts.Models
 
+<_DeleteConfirmation IsParentComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
 <h3>Contacts</h3>
 <a href="contacts/create" class="btn btn-primary">Add a new contact</a>
 
@@ -27,6 +30,8 @@
 						<td><a href="/details/@detail.UserName">Read Notes...</a></td>
 						<td>
 							<NavLink href="@($"contacts/edit/{detail.ID}")" class="btn btn-primary">Edit</NavLink>
+							<button class="btn btn-danger" @onclick="() => HandleDelete(detail.ID)">Delete</button>
+
 						</td>
 					</tr>
 				}	
@@ -48,16 +53,43 @@ else
 
 @code {
 	public IEnumerable<ContactDetailDTO> Contacts = new List<ContactDetailDTO>();
-	public bool IsLoading { get; set; } = true;
+	public bool IsLoading { get; set; }
+	private int DeleteCategoryId { get; set; } = 0;
 
-	protected override async Task OnInitializedAsync()
-	{
-		await Task.Run(LoadContacts);
-	}
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadContacts();
+        }
+    }
 
 	private async Task LoadContacts()
 	{
+		IsLoading=true;
+        StateHasChanged();
 		Contacts = await _contactService.GetAll();
 		IsLoading = false;
+		IsLoading=false;
+        StateHasChanged();
 	}
+
+	private void HandleDelete(int ID)
+    {
+        DeleteCategoryId=ID;
+        _jsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
+    }
+
+    public async Task ConfirmDelete_Click(bool isConfirmed)
+    {
+        IsLoading=true;
+        if(isConfirmed && DeleteCategoryId!=0)
+        {
+            //delete
+            await _contactService.Delete(DeleteCategoryId);
+            await LoadContacts();
+            await _jsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+        }
+        IsLoading=false;
+    }
 }

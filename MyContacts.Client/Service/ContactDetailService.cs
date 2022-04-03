@@ -20,11 +20,6 @@ namespace MyContacts.Client.Service
             //BaseServerUrl = _configuration.GetSection("BaseServerUrl").Value;
         }
 
-        public Task<int> Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<ContactDetailDTO> Get(int ID)
         {
             var response = await _httpClient.GetAsync($"api/ContactDetail/{ID}");
@@ -85,6 +80,23 @@ namespace MyContacts.Client.Service
             }
 
             return new ContactDetailDTO();
+        }
+
+        public async Task Delete(int ID)
+        {
+            var response = await _httpClient.DeleteAsync($"api/ContactDetail/{ID}");
+            /*
+            if (response.IsSuccessStatusCode)
+            {
+                var detail = JsonConvert.DeserializeObject<ContactDetailDTO>(content);
+                return detail;
+            }
+            else
+            {
+                var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(content);
+                throw new Exception(errorModel.ErrorMessage);
+            }
+            */
         }
     }
 }

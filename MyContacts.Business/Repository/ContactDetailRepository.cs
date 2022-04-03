@@ -63,9 +63,9 @@ namespace MyContacts.Business.Repository
             return objDTO;
         }
 
-        public async Task<int> Delete(int id)
+        public async Task<int> Delete(int ID)
         {
-            var obj = await _db.ContactDetails.FirstOrDefaultAsync(x => x.ID == id);
+            var obj = await _db.ContactDetails.FirstOrDefaultAsync(x => x.ID == ID);
             if (obj != null)
             {
                 _db.ContactDetails.Remove(obj);

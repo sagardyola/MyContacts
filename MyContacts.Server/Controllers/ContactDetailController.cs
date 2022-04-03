@@ -60,5 +60,37 @@ namespace MyContacts.Server.Controllers
             var result = await _detailRepository.Edit(objDTO);
             return Ok(result);
         }
+
+        [HttpDelete("{ID:int}")]
+        public async Task<IActionResult> Delete(int? ID)
+        {
+            try
+            {
+                if (ID == null)
+                {
+                    return BadRequest(new ErrorModelDTO()
+                    {
+                        ErrorMessage = "Invalid ID",
+                        StatusCode = StatusCodes.Status400BadRequest
+                    });
+                }
+
+                var contact = await _detailRepository.Delete(ID.Value);
+                if (contact == 0)
+                {
+                    return BadRequest(new ErrorModelDTO()
+                    {
+                        ErrorMessage = "ID Couldnot be found",
+                        StatusCode = StatusCodes.Status404NotFound
+                    });
+                }
+
+                return Ok(contact);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting data");
+            }
+        }
     }
 }

@@ -68,26 +68,30 @@ else
 	public int ID { get; set; }
 	private ContactDetailDTO Contact { get; set; } = new ContactDetailDTO();
 	private string Title { get; set; } = "Create";
+	public bool IsLoading { get; set; }
 
-	public bool IsLoading { get; set; } = true;
-
-	protected override async Task OnInitializedAsync()
+	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (ID == 0)
-		{
-			IsLoading = false;
-		}
-		else
-		{
-			Title = "Update";
-			await Task.Run(LoadContact);
+		if(firstRender){
+			if (ID == 0)
+			{
+				IsLoading = false;
+			}
+			else
+			{
+				Title = "Update";
+				await LoadContact();
+			}
 		}
 	}
 
 	private async Task LoadContact()
 	{
+		IsLoading = true;
+		StateHasChanged();
 		Contact = await _contactDetailService.Get(ID);
 		IsLoading = false;
+		StateHasChanged();
 	}
 
 	private async void UpsertContact()
@@ -100,8 +104,6 @@ else
 		{
 			await _contactDetailService.Edit(Contact);
 		}
-			_navigationManager.NavigateTo("contacts");
-
-
+		_navigationManager.NavigateTo("contacts");
 	}
 }
