@@ -13,9 +13,10 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th scope="col">User Name</th>
 				<th scope="col">First Name</th>
 				<th scope="col">Last Name</th>
+				<th scope="col">Number</th>
+				<th scope="col">Label</th>
 				<th scope="col">Notes</th>
 				<th scope="col">Actions</th>
 			</tr>
@@ -24,13 +25,19 @@
 				@foreach(var detail in Contacts)
 				{
 					<tr>
-						<td scope="row">@detail.UserName</td>
 						<td>@detail.FirstName</td>
 						<td>@detail.LastName</td>
-						<td><a href="/details/@detail.UserName">Read Notes...</a></td>
 						<td>
-							<NavLink href="@($"contacts/edit/{detail.ID}")" class="btn btn-primary">Edit</NavLink>
-							<button class="btn btn-danger" @onclick="() => HandleDelete(detail.ID)">Delete</button>
+							@foreach (var num in detail.ContactNumbers)
+							{
+								<h6><b>@num.Title:</b> @num.Number</h6>
+							}
+						</td>
+						<td>@detail.Label.LabelName</td>
+						<td><a href="/details/@detail.Id">Read Notes...</a></td>
+						<td>
+							<NavLink href="@($"contacts/edit/{detail.Id}")" class="btn btn-primary">Edit</NavLink>
+							<button class="btn btn-danger" @onclick="() => HandleDelete(detail.Id)">Delete</button>
 
 						</td>
 					</tr>
@@ -70,7 +77,6 @@ else
         StateHasChanged();
 		Contacts = await _contactService.GetAll();
 		IsLoading = false;
-		IsLoading=false;
         StateHasChanged();
 	}
 

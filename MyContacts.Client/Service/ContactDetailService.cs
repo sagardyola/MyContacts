@@ -11,7 +11,7 @@ namespace MyContacts.Client.Service
     {
         private readonly HttpClient _httpClient;
         private IConfiguration _configuration;
-        private string BaseServerUrl;
+        //private string BaseServerUrl;
 
         public ContactDetailService(HttpClient httpClient, IConfiguration configuration)
         {
@@ -39,12 +39,12 @@ namespace MyContacts.Client.Service
         public async Task<IEnumerable<ContactDetailDTO>> GetAll()
         {
             var response = await _httpClient.GetAsync("api/ContactDetail");
+            var content = await response.Content.ReadAsStringAsync();
+
             if (response.IsSuccessStatusCode)
             {
-                var content = await response.Content.ReadAsStringAsync();
-                var details = JsonConvert.DeserializeObject<IEnumerable<ContactDetailDTO>>(content);
-
-                return details;
+                var result = JsonConvert.DeserializeObject<IEnumerable<ContactDetailDTO>>(content);
+                return result;
             }
 
             return new List<ContactDetailDTO>();
@@ -54,7 +54,7 @@ namespace MyContacts.Client.Service
         {
             var content = JsonConvert.SerializeObject(objDTO);
             var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync("api/contactdetail/create", bodyContent);
+            var response = await _httpClient.PostAsync("api/ContactDetail/Create", bodyContent);
             string responseResult = response.Content.ReadAsStringAsync().Result;
 
             if (response.IsSuccessStatusCode)

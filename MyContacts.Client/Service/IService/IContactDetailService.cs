@@ -1,5 +1,4 @@
-﻿using MyContacts.DataAccess;
-using MyContacts.Models;
+﻿using MyContacts.Models;
 
 namespace MyContacts.Client.Service.IService
 {

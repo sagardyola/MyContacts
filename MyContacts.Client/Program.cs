@@ -12,5 +12,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration.GetValue<string>("BaseAPIUrl")) });
 
 builder.Services.AddScoped<IContactDetailService, ContactDetailService>();
+builder.Services.AddScoped<ILabelService, LabelService>();
+builder.Services.AddScoped<IContactNumberService, ContactNumberService>();
 
 await builder.Build().RunAsync();

@@ -1,11 +1,12 @@
 ﻿@page "/contacts/create"
 @page "/contacts/edit/{id:int}"
 
-
 @inject IContactDetailService _contactDetailService
+@inject ILabelService _labelService
 @inject NavigationManager _navigationManager
 
 <h3>@Title a Contact</h3>
+
 @if (IsLoading)
 {
 	<h4>Loading....</h4>
@@ -16,37 +17,31 @@ else
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 	<div class="form-group">
-		<label>Username</label>
-		<InputText @bind-Value="Contact.UserName" class="form-control"></InputText>
-		<ValidationMessage For="() => Contact.UserName"></ValidationMessage>
-	</div>
-		<div class="form-group">
 		<label>First Name</label>
 		<InputText @bind-Value="Contact.FirstName" class="form-control"></InputText>
 		<ValidationMessage For="() => Contact.FirstName"></ValidationMessage>
 	</div>
-		<div class="form-group">
+	<div class="form-group">
 		<label>Last name</label>
 		<InputText @bind-Value="Contact.LastName" class="form-control"></InputText>
 		<ValidationMessage For="() => Contact.LastName"></ValidationMessage>
 	</div>
 
 	<div class="form-group">
-		<label>MobileNumber</label>
-		<InputText @bind-Value="Contact.MobileNumber" class="form-control"></InputText>
-		<ValidationMessage For="() => Contact.MobileNumber"></ValidationMessage>
+		<label>Label</label>
+		<InputSelect @bind-Value="Contact.LabelId" class="form-control">
+			@foreach (var _label in Labels)
+			{
+				<option value="@_label.Id">@_label.LabelName</option>
+			}
+		</InputSelect>
+		<ValidationMessage For="() => Contact.LastName"></ValidationMessage>
 	</div>
 
 	<div class="form-group">
-		<label>Address1</label>
-		<InputText @bind-Value="Contact.Address1" class="form-control"></InputText>
-		<ValidationMessage For="() => Contact.Address1"></ValidationMessage>
-	</div>
-
-	<div class="form-group">
-		<label>Address2</label>
-		<InputText @bind-Value="Contact.Address2" class="form-control"></InputText>
-		<ValidationMessage For="() => Contact.Address2"></ValidationMessage>
+		<label>Address</label>
+		<InputText @bind-Value="Contact.Address" class="form-control"></InputText>
+		<ValidationMessage For="() => Contact.Address"></ValidationMessage>
 	</div>
 
 	<div class="form-group">
@@ -67,8 +62,14 @@ else
 	[Parameter]
 	public int ID { get; set; }
 	private ContactDetailDTO Contact { get; set; } = new ContactDetailDTO();
+	private IEnumerable<LabelDTO> Labels { get; set; } = new List<LabelDTO>();
 	private string Title { get; set; } = "Create";
 	public bool IsLoading { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		Labels = await _labelService.GetAll();
+	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
@@ -96,7 +97,7 @@ else
 
 	private async void UpsertContact()
 	{
-		if (Contact.ID == 0)
+		if (Contact.Id == 0)
 		{
 			await _contactDetailService.Create(Contact);
 		}

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyContacts.DataAccess.Data;
 
@@ -11,9 +12,10 @@ using MyContacts.DataAccess.Data;
 namespace MyContacts.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220403182614_new")]
+    partial class @new
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +74,7 @@ namespace MyContacts.DataAccess.Migrations
                         {
                             Id = 1,
                             Address = "8B Court Parade, HA0 3HY",
-                            DateCreated = new DateTime(2022, 4, 3, 19, 28, 56, 559, DateTimeKind.Local).AddTicks(1004),
+                            DateCreated = new DateTime(2022, 4, 3, 19, 26, 14, 710, DateTimeKind.Local).AddTicks(6364),
                             DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Sagar",
                             IsDeleted = false,
@@ -85,7 +87,7 @@ namespace MyContacts.DataAccess.Migrations
                         {
                             Id = 2,
                             Address = "8A Court Parade, HA0 3HY",
-                            DateCreated = new DateTime(2022, 4, 3, 19, 28, 56, 559, DateTimeKind.Local).AddTicks(1039),
+                            DateCreated = new DateTime(2022, 4, 3, 19, 26, 14, 710, DateTimeKind.Local).AddTicks(6403),
                             DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Sunita",
                             IsDeleted = false,
@@ -98,7 +100,7 @@ namespace MyContacts.DataAccess.Migrations
                         {
                             Id = 3,
                             Address = "Lagankhel, Nepal",
-                            DateCreated = new DateTime(2022, 4, 3, 19, 28, 56, 559, DateTimeKind.Local).AddTicks(1041),
+                            DateCreated = new DateTime(2022, 4, 3, 19, 26, 14, 710, DateTimeKind.Local).AddTicks(6405),
                             DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Surya Lal",
                             IsDeleted = false,
@@ -111,7 +113,7 @@ namespace MyContacts.DataAccess.Migrations
                         {
                             Id = 4,
                             Address = "Lagankhel, Nepal",
-                            DateCreated = new DateTime(2022, 4, 3, 19, 28, 56, 559, DateTimeKind.Local).AddTicks(1044),
+                            DateCreated = new DateTime(2022, 4, 3, 19, 26, 14, 710, DateTimeKind.Local).AddTicks(6408),
                             DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Sumitra",
                             IsDeleted = false,
@@ -124,7 +126,7 @@ namespace MyContacts.DataAccess.Migrations
                         {
                             Id = 5,
                             Address = "Lagankhel, Nepal",
-                            DateCreated = new DateTime(2022, 4, 3, 19, 28, 56, 559, DateTimeKind.Local).AddTicks(1046),
+                            DateCreated = new DateTime(2022, 4, 3, 19, 26, 14, 710, DateTimeKind.Local).AddTicks(6410),
                             DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Sunita",
                             IsDeleted = false,
@@ -137,7 +139,7 @@ namespace MyContacts.DataAccess.Migrations
                         {
                             Id = 6,
                             Address = "Samakhushi, Nepal",
-                            DateCreated = new DateTime(2022, 4, 3, 19, 28, 56, 559, DateTimeKind.Local).AddTicks(1048),
+                            DateCreated = new DateTime(2022, 4, 3, 19, 26, 14, 710, DateTimeKind.Local).AddTicks(6412),
                             DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Subita",
                             IsDeleted = false,

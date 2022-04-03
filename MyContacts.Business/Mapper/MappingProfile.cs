@@ -9,6 +9,8 @@ namespace MyContacts.Business.Mapper
         public MappingProfile()
         {
             CreateMap<ContactDetail, ContactDetailDTO>().ReverseMap();
+            CreateMap<Label, LabelDTO>().ReverseMap();
+            CreateMap<ContactNumber, ContactNumberDTO>().ReverseMap();
         }
     }
 }

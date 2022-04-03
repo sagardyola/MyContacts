@@ -17,9 +17,9 @@ namespace MyContacts.Business.Repository
             _mapper = mapper;
         }
 
-        public async Task<ContactDetailDTO> Get(int ID)
+        public async Task<ContactDetailDTO> Get(int Id)
         {
-            var obj = await _db.ContactDetails.FirstOrDefaultAsync(u => u.ID == ID);
+            var obj = await _db.ContactDetails.FirstOrDefaultAsync(u => u.Id == Id);
             if (obj != null)
             {
                 return _mapper.Map<ContactDetail, ContactDetailDTO>(obj);
@@ -29,7 +29,13 @@ namespace MyContacts.Business.Repository
 
         public async Task<IEnumerable<ContactDetailDTO>> GetAll()
         {
-            return _mapper.Map<IEnumerable<ContactDetail>, IEnumerable<ContactDetailDTO>>(_db.ContactDetails);
+            /*
+            var obj = await _db.ContactDetails.Include(x => x.Label).ToListAsync();
+            //.Include(x => x.ContactNumbers).ToListAsync();
+            return _mapper.Map<List<ContactDetail>, List<ContactDetailDTO>>(obj);
+            */
+
+            return _mapper.Map<IEnumerable<ContactDetail>, IEnumerable<ContactDetailDTO>>(_db.ContactDetails.Include(x => x.Label).Include(x => x.ContactNumbers));
         }
 
         public async Task<ContactDetailDTO> Create(ContactDetailDTO objDTO)
@@ -44,15 +50,12 @@ namespace MyContacts.Business.Repository
 
         public async Task<ContactDetailDTO> Edit(ContactDetailDTO objDTO)
         {
-            var objFromDb = await _db.ContactDetails.FirstOrDefaultAsync(u => u.ID == objDTO.ID);
+            var objFromDb = await _db.ContactDetails.FirstOrDefaultAsync(u => u.Id == objDTO.Id);
             if (objFromDb != null)
             {
-                objFromDb.UserName = objDTO.UserName;
                 objFromDb.FirstName = objDTO.FirstName;
                 objFromDb.LastName = objDTO.LastName;
-                objFromDb.Address1 = objDTO.Address1;
-                objFromDb.Address2 = objDTO.Address2;
-                objFromDb.MobileNumber = objDTO.MobileNumber;
+                objFromDb.Address = objDTO.Address;
                 objFromDb.Notes = objDTO.Notes;
 
                 _db.ContactDetails.Update(objFromDb);
@@ -63,9 +66,9 @@ namespace MyContacts.Business.Repository
             return objDTO;
         }
 
-        public async Task<int> Delete(int ID)
+        public async Task<int> Delete(int Id)
         {
-            var obj = await _db.ContactDetails.FirstOrDefaultAsync(x => x.ID == ID);
+            var obj = await _db.ContactDetails.FirstOrDefaultAsync(x => x.Id == Id);
             if (obj != null)
             {
                 _db.ContactDetails.Remove(obj);

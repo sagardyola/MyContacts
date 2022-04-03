@@ -1,0 +1,60 @@
+﻿@page "/labels"
+@inject ILabelService _labelService
+@inject IJSRuntime _jsRuntime
+
+@using MyContacts.Models
+
+<h3>Labels</h3>
+
+@if (Labels.Any())
+{
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th scope="col">Label</th>
+			</tr>
+			</thead>
+			<tbody>
+				@foreach(var label in Labels)
+				{
+					<tr>
+						<td>@label.LabelName</td>
+					</tr>
+				}	
+			</tbody>
+	</table>
+}
+else
+{
+	if (IsLoading)
+	{
+		<h4>Loading</h4>
+	}
+	else
+	{
+		<h4>No labels found</h4>
+	}
+}
+
+
+@code {
+	public IEnumerable<LabelDTO> Labels = new List<LabelDTO>();
+	public bool IsLoading { get; set; }
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadLabels();
+        }
+    }
+
+	private async Task LoadLabels()
+	{
+		IsLoading=true;
+        StateHasChanged();
+		Labels = await _labelService.GetAll();
+		IsLoading = false;
+        StateHasChanged();
+	}
+}

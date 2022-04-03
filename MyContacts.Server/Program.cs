@@ -17,6 +17,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IContactDetailRepository, ContactDetailRepository>();
+builder.Services.AddScoped<ILabelRepository, LabelRepository>();
+builder.Services.AddScoped<IContactNumberRepository, ContactNumberRepository>();
 
 builder.Services.AddCors(o => o.AddPolicy("MyContacts", builder =>
 {
