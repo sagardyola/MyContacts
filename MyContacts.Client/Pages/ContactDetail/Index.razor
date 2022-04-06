@@ -38,7 +38,6 @@
 						<td>
 							<NavLink href="@($"contacts/edit/{detail.Id}")" class="btn btn-primary">Edit</NavLink>
 							<button class="btn btn-danger" @onclick="() => HandleDelete(detail.Id)">Delete</button>
-
 						</td>
 					</tr>
 				}	
@@ -80,9 +79,9 @@ else
         StateHasChanged();
 	}
 
-	private void HandleDelete(int ID)
+	private void HandleDelete(int Id)
     {
-        DeleteCategoryId=ID;
+        DeleteCategoryId=Id;
         _jsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
     }
 

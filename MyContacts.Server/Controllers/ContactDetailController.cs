@@ -22,19 +22,19 @@ namespace MyContacts.Server.Controllers
             return Ok(await _detailRepository.GetAll());
         }
 
-        [HttpGet("{ID:int}")]
-        public async Task<IActionResult> Get(int? ID)
+        [HttpGet("{Id:int}")]
+        public async Task<IActionResult> Get(int? Id)
         {
-            if (ID == null)
+            if (Id == null)
             {
                 return BadRequest(new ErrorModelDTO()
                 {
-                    ErrorMessage = "Invalid ID",
+                    ErrorMessage = "Invalid Id",
                     StatusCode = StatusCodes.Status400BadRequest
                 });
             }
 
-            var contact = await _detailRepository.Get(ID.Value);
+            var contact = await _detailRepository.Get(Id.Value);
             if (contact == null)
             {
                 return BadRequest(new ErrorModelDTO()
@@ -61,26 +61,26 @@ namespace MyContacts.Server.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{ID:int}")]
-        public async Task<IActionResult> Delete(int? ID)
+        [HttpDelete("{Id:int}")]
+        public async Task<IActionResult> Delete(int? Id)
         {
             try
             {
-                if (ID == null)
+                if (Id == null)
                 {
                     return BadRequest(new ErrorModelDTO()
                     {
-                        ErrorMessage = "Invalid ID",
+                        ErrorMessage = "Invalid Id",
                         StatusCode = StatusCodes.Status400BadRequest
                     });
                 }
 
-                var contact = await _detailRepository.Delete(ID.Value);
+                var contact = await _detailRepository.Delete(Id.Value);
                 if (contact == 0)
                 {
                     return BadRequest(new ErrorModelDTO()
                     {
-                        ErrorMessage = "ID Couldnot be found",
+                        ErrorMessage = "Id Couldnot be found",
                         StatusCode = StatusCodes.Status404NotFound
                     });
                 }

@@ -1,6 +1,7 @@
 ﻿using MyContacts.Client.Service.IService;
 using MyContacts.Models;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace MyContacts.Client.Service
 {
@@ -14,24 +15,57 @@ namespace MyContacts.Client.Service
             _httpClient = httpClient;
             _configuration = configuration;
         }
-        public Task<LabelDTO> Create(LabelDTO objDTO)
+        public async Task<LabelDTO> Create(LabelDTO objDTO)
         {
-            throw new NotImplementedException();
+            var content = JsonConvert.SerializeObject(objDTO);
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("api/Label/Create", bodyContent);
+            string responseResult = response.Content.ReadAsStringAsync().Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = JsonConvert.DeserializeObject<LabelDTO>(responseResult);
+                return result;
+            }
+
+            return new LabelDTO();
         }
 
-        public Task Delete(int ID)
+        public async Task Delete(int Id)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.DeleteAsync($"api/Label/{Id}");
         }
 
-        public Task<LabelDTO> Edit(LabelDTO objDTO)
+        public async Task<LabelDTO> Edit(LabelDTO objDTO)
         {
-            throw new NotImplementedException();
+            var content = JsonConvert.SerializeObject(objDTO);
+            var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PutAsync("api/Label/{objDTO}", bodyContent);
+            string responseResult = response.Content.ReadAsStringAsync().Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = JsonConvert.DeserializeObject<LabelDTO>(responseResult);
+                return result;
+            }
+
+            return new LabelDTO();
         }
 
-        public Task<LabelDTO> Get(int ID)
+        public async Task<LabelDTO> Get(int Id)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.GetAsync($"api/Label/{Id}");
+            var content = await response.Content.ReadAsStringAsync();
+            if (response.IsSuccessStatusCode)
+            {
+                var detail = JsonConvert.DeserializeObject<LabelDTO>(content);
+                return detail;
+            }
+            else
+            {
+                var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(content);
+                throw new Exception(errorModel.ErrorMessage);
+            }
         }
 
         public async Task<IEnumerable<LabelDTO>> GetAll()

@@ -4,7 +4,10 @@
 
 @using MyContacts.Models
 
+<_DeleteConfirmation IsParentComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
 <h3>Labels</h3>
+<a href="labels/create" class="btn btn-primary">Add a new Label</a>
+
 
 @if (Labels.Any())
 {
@@ -12,6 +15,7 @@
 		<thead>
 			<tr>
 				<th scope="col">Label</th>
+				<th scope="col">Actions</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -19,6 +23,10 @@
 				{
 					<tr>
 						<td>@label.LabelName</td>
+						<td>
+							<NavLink href="@($"labels/edit/{label.Id}")" class="btn btn-primary">Edit</NavLink>
+							<button class="btn btn-danger" @onclick="() => HandleDelete(label.Id)">Delete</button>
+						</td>
 					</tr>
 				}	
 			</tbody>
@@ -40,6 +48,7 @@ else
 @code {
 	public IEnumerable<LabelDTO> Labels = new List<LabelDTO>();
 	public bool IsLoading { get; set; }
+	private int DeleteLabelId { get; set; } = 0;
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -57,4 +66,23 @@ else
 		IsLoading = false;
         StateHasChanged();
 	}
+
+	private void HandleDelete(int Id)
+    {
+        DeleteLabelId=Id;
+        _jsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
+    }
+
+    public async Task ConfirmDelete_Click(bool isConfirmed)
+    {
+        IsLoading=true;
+        if(isConfirmed && DeleteLabelId!=0)
+        {
+            //delete
+            await _labelService.Delete(DeleteLabelId);
+            await LoadLabels();
+            await _jsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+        }
+        IsLoading=false;
+    }
 }

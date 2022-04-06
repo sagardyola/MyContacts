@@ -20,9 +20,9 @@ namespace MyContacts.Client.Service
             //BaseServerUrl = _configuration.GetSection("BaseServerUrl").Value;
         }
 
-        public async Task<ContactDetailDTO> Get(int ID)
+        public async Task<ContactDetailDTO> Get(int Id)
         {
-            var response = await _httpClient.GetAsync($"api/ContactDetail/{ID}");
+            var response = await _httpClient.GetAsync($"api/ContactDetail/{Id}");
             var content = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
@@ -82,9 +82,9 @@ namespace MyContacts.Client.Service
             return new ContactDetailDTO();
         }
 
-        public async Task Delete(int ID)
+        public async Task Delete(int Id)
         {
-            var response = await _httpClient.DeleteAsync($"api/ContactDetail/{ID}");
+            var response = await _httpClient.DeleteAsync($"api/ContactDetail/{Id}");
             /*
             if (response.IsSuccessStatusCode)
             {
