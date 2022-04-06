@@ -35,7 +35,7 @@ else
 				<option value="@_label.Id">@_label.LabelName</option>
 			}
 		</InputSelect>
-		<ValidationMessage For="() => Contact.LastName"></ValidationMessage>
+		<ValidationMessage For="() => Contact.LabelId"></ValidationMessage>
 	</div>
 
 	<div class="form-group">
@@ -48,6 +48,12 @@ else
 		<label>Notes</label>
 		<InputText @bind-Value="Contact.Notes" class="form-control"></InputText>
 		<ValidationMessage For="() => Contact.Notes"></ValidationMessage>
+	</div>
+
+	<div class="form-group">
+		<label>Image</label>
+		<InputText @bind-Value="Contact.Image" class="form-control"></InputText>
+		<ValidationMessage For="() => Contact.Image"></ValidationMessage>
 	</div>
 
 	<div class="form-group">

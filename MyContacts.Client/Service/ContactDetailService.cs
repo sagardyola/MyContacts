@@ -38,7 +38,7 @@ namespace MyContacts.Client.Service
 
         public async Task<IEnumerable<ContactDetailDTO>> GetAll()
         {
-            var response = await _httpClient.GetAsync("api/ContactDetail");
+            var response = await _httpClient.GetAsync("api/ContactDetail/GetAll");
             var content = await response.Content.ReadAsStringAsync();
 
             if (response.IsSuccessStatusCode)
@@ -70,7 +70,7 @@ namespace MyContacts.Client.Service
         {
             var content = JsonConvert.SerializeObject(objDTO);
             var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync("api/contactdetail/{objDTO}", bodyContent);
+            var response = await _httpClient.PutAsync("api/contactdetail/{objDTO}", bodyContent);
             string responseResult = response.Content.ReadAsStringAsync().Result;
 
             if (response.IsSuccessStatusCode)

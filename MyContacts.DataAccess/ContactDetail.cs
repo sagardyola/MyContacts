@@ -17,10 +17,10 @@ namespace MyContacts.DataAccess
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public DateTime DateUpdated { get; set; }
 
-        public int LabelId { get; set; }
+        public int? LabelId { get; set; }
         [ForeignKey("LabelId")]
-        public Label Label { get; set; }
+        public Label? Label { get; set; }
 
-        public ICollection<ContactNumber> ContactNumbers { get; set; }
+        public ICollection<ContactNumber>? ContactNumbers { get; set; }
     }
 }

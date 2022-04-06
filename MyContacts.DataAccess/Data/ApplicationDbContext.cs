@@ -15,6 +15,16 @@ namespace MyContacts.DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*
+            // configures one-to-many relationship
+            modelBuilder.Entity<ContactDetail>()
+                .HasOne<Label>(x => x.Label);
+
+            modelBuilder.Entity<ContactDetail>()
+                .HasMany<ContactNumber>(x => x.ContactNumbers)
+                .WithOne(x => x.ContactDetail)
+                .HasForeignKey(x => x.ContactDetailId);
+            */
             //modelBuilder.Entity<ContactDetail>()
             //            .HasMany(c => c.ContactNumbers)
             //            .WithOne(e => e.ContactDetail);

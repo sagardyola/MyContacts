@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace MyContacts.Models
 {
@@ -14,10 +15,11 @@ namespace MyContacts.Models
         public bool IsPublished { get; set; } = true;
         public bool IsDeleted { get; set; } = false;
 
-        [Range(1, int.MaxValue, ErrorMessage = "Please select a label")]
-        public int LabelId { get; set; }
-        public LabelDTO Label { get; set; }
-
-        public ICollection<ContactNumberDTO> ContactNumbers { get; set; }
+        //[Range(1, int.MaxValue, ErrorMessage = "Please select a label")]
+        public int? LabelId { get; set; }
+        //[JsonIgnore]
+        public LabelDTO? Label { get; set; }
+        //[JsonIgnore]
+        public ICollection<ContactNumberDTO>? ContactNumbers { get; set; }
     }
 }

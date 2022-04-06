@@ -52,7 +52,7 @@ namespace MyContacts.DataAccess.Migrations
                     b.Property<bool>("IsPublished")
                         .HasColumnType("bit");
 
-                    b.Property<int>("LabelId")
+                    b.Property<int?>("LabelId")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
@@ -72,7 +72,7 @@ namespace MyContacts.DataAccess.Migrations
                         {
                             Id = 1,
                             Address = "8B Court Parade, HA0 3HY",
-                            DateCreated = new DateTime(2022, 4, 3, 19, 28, 56, 559, DateTimeKind.Local).AddTicks(1004),
+                            DateCreated = new DateTime(2022, 4, 6, 14, 17, 38, 668, DateTimeKind.Local).AddTicks(5746),
                             DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Sagar",
                             IsDeleted = false,
@@ -85,7 +85,7 @@ namespace MyContacts.DataAccess.Migrations
                         {
                             Id = 2,
                             Address = "8A Court Parade, HA0 3HY",
-                            DateCreated = new DateTime(2022, 4, 3, 19, 28, 56, 559, DateTimeKind.Local).AddTicks(1039),
+                            DateCreated = new DateTime(2022, 4, 6, 14, 17, 38, 668, DateTimeKind.Local).AddTicks(5796),
                             DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Sunita",
                             IsDeleted = false,
@@ -98,7 +98,7 @@ namespace MyContacts.DataAccess.Migrations
                         {
                             Id = 3,
                             Address = "Lagankhel, Nepal",
-                            DateCreated = new DateTime(2022, 4, 3, 19, 28, 56, 559, DateTimeKind.Local).AddTicks(1041),
+                            DateCreated = new DateTime(2022, 4, 6, 14, 17, 38, 668, DateTimeKind.Local).AddTicks(5800),
                             DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Surya Lal",
                             IsDeleted = false,
@@ -111,7 +111,7 @@ namespace MyContacts.DataAccess.Migrations
                         {
                             Id = 4,
                             Address = "Lagankhel, Nepal",
-                            DateCreated = new DateTime(2022, 4, 3, 19, 28, 56, 559, DateTimeKind.Local).AddTicks(1044),
+                            DateCreated = new DateTime(2022, 4, 6, 14, 17, 38, 668, DateTimeKind.Local).AddTicks(5803),
                             DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Sumitra",
                             IsDeleted = false,
@@ -124,7 +124,7 @@ namespace MyContacts.DataAccess.Migrations
                         {
                             Id = 5,
                             Address = "Lagankhel, Nepal",
-                            DateCreated = new DateTime(2022, 4, 3, 19, 28, 56, 559, DateTimeKind.Local).AddTicks(1046),
+                            DateCreated = new DateTime(2022, 4, 6, 14, 17, 38, 668, DateTimeKind.Local).AddTicks(5807),
                             DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Sunita",
                             IsDeleted = false,
@@ -137,7 +137,7 @@ namespace MyContacts.DataAccess.Migrations
                         {
                             Id = 6,
                             Address = "Samakhushi, Nepal",
-                            DateCreated = new DateTime(2022, 4, 3, 19, 28, 56, 559, DateTimeKind.Local).AddTicks(1048),
+                            DateCreated = new DateTime(2022, 4, 6, 14, 17, 38, 668, DateTimeKind.Local).AddTicks(5811),
                             DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Subita",
                             IsDeleted = false,
@@ -156,7 +156,7 @@ namespace MyContacts.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ContactDetailId")
+                    b.Property<int?>("ContactDetailId")
                         .HasColumnType("int");
 
                     b.Property<string>("Number")
@@ -277,9 +277,7 @@ namespace MyContacts.DataAccess.Migrations
                 {
                     b.HasOne("MyContacts.DataAccess.Label", "Label")
                         .WithMany()
-                        .HasForeignKey("LabelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LabelId");
 
                     b.Navigation("Label");
                 });
@@ -288,9 +286,7 @@ namespace MyContacts.DataAccess.Migrations
                 {
                     b.HasOne("MyContacts.DataAccess.ContactDetail", "ContactDetail")
                         .WithMany("ContactNumbers")
-                        .HasForeignKey("ContactDetailId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ContactDetailId");
 
                     b.Navigation("ContactDetail");
                 });

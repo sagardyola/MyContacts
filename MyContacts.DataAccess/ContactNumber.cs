@@ -10,8 +10,8 @@ namespace MyContacts.DataAccess
         public string Title { get; set; }
         public string Number { get; set; }
 
-        public int ContactDetailId { get; set; }
+        public int? ContactDetailId { get; set; }
         [ForeignKey("ContactDetailId")]
-        public ContactDetail ContactDetail { get; set; }
+        public ContactDetail? ContactDetail { get; set; }
     }
 }

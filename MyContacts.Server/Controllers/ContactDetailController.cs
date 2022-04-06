@@ -16,7 +16,7 @@ namespace MyContacts.Server.Controllers
             _detailRepository = detailRepository;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _detailRepository.GetAll());
@@ -54,7 +54,7 @@ namespace MyContacts.Server.Controllers
             return Ok(result);
         }
 
-        [HttpPost("{objDTO}")]
+        [HttpPut("{objDTO}")]
         public async Task<IActionResult> Edit([FromBody] ContactDetailDTO objDTO)
         {
             var result = await _detailRepository.Edit(objDTO);

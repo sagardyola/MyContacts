@@ -33,7 +33,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("MyContacts");
 
-//app.UseRouting();
+app.UseRouting();
 
 app.UseAuthorization();
 

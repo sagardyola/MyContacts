@@ -37,7 +37,7 @@ namespace MyContacts.DataAccess.Migrations
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LabelId = table.Column<int>(type: "int", nullable: false)
+                    LabelId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,8 +46,7 @@ namespace MyContacts.DataAccess.Migrations
                         name: "FK_ContactDetails_Labels_LabelId",
                         column: x => x.LabelId,
                         principalTable: "Labels",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -58,7 +57,7 @@ namespace MyContacts.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Number = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContactDetailId = table.Column<int>(type: "int", nullable: false)
+                    ContactDetailId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,8 +66,7 @@ namespace MyContacts.DataAccess.Migrations
                         name: "FK_ContactNumbers_ContactDetails_ContactDetailId",
                         column: x => x.ContactDetailId,
                         principalTable: "ContactDetails",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -91,12 +89,12 @@ namespace MyContacts.DataAccess.Migrations
                 columns: new[] { "Id", "Address", "DateCreated", "DateUpdated", "FirstName", "Image", "IsDeleted", "IsPublished", "LabelId", "LastName", "Notes" },
                 values: new object[,]
                 {
-                    { 1, "8B Court Parade, HA0 3HY", new DateTime(2022, 4, 3, 19, 26, 14, 710, DateTimeKind.Local).AddTicks(6364), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sagar", null, false, true, 2, "Dyola", "Nothing for now" },
-                    { 2, "8A Court Parade, HA0 3HY", new DateTime(2022, 4, 3, 19, 26, 14, 710, DateTimeKind.Local).AddTicks(6403), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sunita", null, false, true, 3, "Ghale", "Hey this is Sunita Ghale" },
-                    { 3, "Lagankhel, Nepal", new DateTime(2022, 4, 3, 19, 26, 14, 710, DateTimeKind.Local).AddTicks(6405), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Surya Lal", null, false, true, 1, "Dyola", "Surya here. Nothing for now" },
-                    { 4, "Lagankhel, Nepal", new DateTime(2022, 4, 3, 19, 26, 14, 710, DateTimeKind.Local).AddTicks(6408), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sumitra", null, false, true, 2, "Dyola", "Sumitra here. Nothing for now" },
-                    { 5, "Lagankhel, Nepal", new DateTime(2022, 4, 3, 19, 26, 14, 710, DateTimeKind.Local).AddTicks(6410), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sunita", null, false, true, 3, "Dyola", "Sunita here. Nothing for now" },
-                    { 6, "Samakhushi, Nepal", new DateTime(2022, 4, 3, 19, 26, 14, 710, DateTimeKind.Local).AddTicks(6412), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Subita", null, false, true, 1, "Ghale", "Subita here. Nothing for now" }
+                    { 1, "8B Court Parade, HA0 3HY", new DateTime(2022, 4, 6, 14, 17, 38, 668, DateTimeKind.Local).AddTicks(5746), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sagar", null, false, true, 2, "Dyola", "Nothing for now" },
+                    { 2, "8A Court Parade, HA0 3HY", new DateTime(2022, 4, 6, 14, 17, 38, 668, DateTimeKind.Local).AddTicks(5796), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sunita", null, false, true, 3, "Ghale", "Hey this is Sunita Ghale" },
+                    { 3, "Lagankhel, Nepal", new DateTime(2022, 4, 6, 14, 17, 38, 668, DateTimeKind.Local).AddTicks(5800), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Surya Lal", null, false, true, 1, "Dyola", "Surya here. Nothing for now" },
+                    { 4, "Lagankhel, Nepal", new DateTime(2022, 4, 6, 14, 17, 38, 668, DateTimeKind.Local).AddTicks(5803), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sumitra", null, false, true, 2, "Dyola", "Sumitra here. Nothing for now" },
+                    { 5, "Lagankhel, Nepal", new DateTime(2022, 4, 6, 14, 17, 38, 668, DateTimeKind.Local).AddTicks(5807), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sunita", null, false, true, 3, "Dyola", "Sunita here. Nothing for now" },
+                    { 6, "Samakhushi, Nepal", new DateTime(2022, 4, 6, 14, 17, 38, 668, DateTimeKind.Local).AddTicks(5811), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Subita", null, false, true, 1, "Ghale", "Subita here. Nothing for now" }
                 });
 
             migrationBuilder.InsertData(

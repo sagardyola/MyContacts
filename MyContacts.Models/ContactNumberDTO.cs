@@ -8,7 +8,7 @@ namespace MyContacts.Models
         public string Title { get; set; }
         public string Number { get; set; }
 
-        [Required]
-        public int ContactDetailId { get; set; }
+        //[Required]
+        public int? ContactDetailId { get; set; }
     }
 }
