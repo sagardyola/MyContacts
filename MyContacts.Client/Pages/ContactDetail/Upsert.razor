@@ -30,7 +30,8 @@ else
 
 	<div class="form-group">
 		<label>Label</label>
-		<InputSelect @bind-Value="Contact.LabelId" class="form-control">
+		<InputSelect @bind-Value="LabelValue" class="form-control">
+			<option value="null">None</option>
 			@foreach (var _label in Labels)
 			{
 				<option value="@_label.Id">@_label.Title</option>
@@ -67,7 +68,8 @@ else
 
 @code {
 	[Parameter]
-	public int ID { get; set; }
+	public int Id { get; set; }
+	private int? LabelValue { get; set; } = null;
 	private ContactDetailDTO Contact { get; set; } = new ContactDetailDTO();
 	private IEnumerable<LabelDTO> Labels { get; set; } = new List<LabelDTO>();
 	private string Title { get; set; } = "Create";
@@ -81,7 +83,7 @@ else
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if(firstRender){
-			if (ID == 0)
+			if (Id == 0)
 			{
 				IsLoading = false;
 			}
@@ -97,13 +99,15 @@ else
 	{
 		IsLoading = true;
 		StateHasChanged();
-		Contact = await _contactDetailService.Get(ID);
+		Contact = await _contactDetailService.Get(Id);
+		LabelValue = Contact.LabelId;
 		IsLoading = false;
 		StateHasChanged();
 	}
 
 	private async void UpsertContact()
 	{
+		Contact.LabelId = LabelValue;
 		if (Contact.Id == 0)
 		{
 			await _contactDetailService.Create(Contact);

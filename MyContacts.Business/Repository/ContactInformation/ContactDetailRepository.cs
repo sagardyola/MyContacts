@@ -57,6 +57,8 @@ namespace MyContacts.Business.Repository
                 objFromDb.LastName = objDTO.LastName;
                 objFromDb.Address = objDTO.Address;
                 objFromDb.Notes = objDTO.Notes;
+                objFromDb.Image = objDTO.Image;
+                objFromDb.LabelId = objDTO.LabelId;
 
                 _db.ContactDetails.Update(objFromDb);
                 await _db.SaveChangesAsync();

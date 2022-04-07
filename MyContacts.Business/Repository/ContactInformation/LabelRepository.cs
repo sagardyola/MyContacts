@@ -11,6 +11,7 @@ namespace MyContacts.Business.Repository
     {
         private readonly ApplicationDbContext _db;
         private readonly IMapper _mapper;
+
         public LabelRepository(ApplicationDbContext db, IMapper mapper)
         {
             _db = db;
@@ -28,6 +29,15 @@ namespace MyContacts.Business.Repository
 
         public async Task<int> Delete(int Id)
         {
+            //remove label from contact details
+            var contactDetails = _db.ContactDetails.Where(x => x.LabelId == Id);
+            if (contactDetails.Count() > 0)
+            {
+                await contactDetails.ForEachAsync(x => x.LabelId = null);
+                _db.ContactDetails.UpdateRange(contactDetails);
+                await _db.SaveChangesAsync();
+            }
+
             var obj = await _db.Labels.FirstOrDefaultAsync(x => x.Id == Id);
             if (obj != null)
             {

@@ -87,7 +87,7 @@ namespace MyContacts.Server.Controllers
 
                 return Ok(contact);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting data");
             }

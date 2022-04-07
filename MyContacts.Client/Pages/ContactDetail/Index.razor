@@ -33,7 +33,9 @@
 								<h6><b>@num.Title:</b> @num.ContactNumber</h6>
 							}
 						</td>
-						<td>@detail.Label.Title</td>
+						<td>
+							@if (detail.LabelId != null) @detail.Label.Title
+						</td>
 						<td><a href="/details/@detail.Id">Read Notes...</a></td>
 						<td>
 							<NavLink href="@($"contacts/edit/{detail.Id}")" class="btn btn-primary">Edit</NavLink>
