@@ -13,6 +13,6 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services.AddScoped<IContactDetailService, ContactDetailService>();
 builder.Services.AddScoped<ILabelService, LabelService>();
-builder.Services.AddScoped<IContactNumberService, ContactNumberService>();
+builder.Services.AddScoped<IPhoneNumberService, PhoneNumberService>();
 
 await builder.Build().RunAsync();

@@ -1,8 +1,7 @@
 ﻿using MyContacts.Client.Service.IService;
-using MyContacts.DataAccess;
-using MyContacts.Models;
+using MyContacts.Models.ContactInformationDTO;
+using MyContacts.Models.Shared;
 using Newtonsoft.Json;
-using System.Net.Http.Json;
 using System.Text;
 
 namespace MyContacts.Client.Service

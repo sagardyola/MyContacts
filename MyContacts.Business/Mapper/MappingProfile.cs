@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using MyContacts.DataAccess;
-using MyContacts.Models;
+using MyContacts.DataAccessLayer.ContactInformation;
+using MyContacts.Models.ContactInformationDTO;
 
 namespace MyContacts.Business.Mapper
 {
@@ -10,7 +10,7 @@ namespace MyContacts.Business.Mapper
         {
             CreateMap<ContactDetail, ContactDetailDTO>().ReverseMap();
             CreateMap<Label, LabelDTO>().ReverseMap();
-            CreateMap<ContactNumber, ContactNumberDTO>().ReverseMap();
+            CreateMap<PhoneNumber, PhoneNumberDTO>().ReverseMap();
         }
     }
 }

@@ -5,7 +5,7 @@ namespace MyContacts.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ContactNumberController : ControllerBase
+    public class PhoneNumberController : ControllerBase
     {
     }
 }

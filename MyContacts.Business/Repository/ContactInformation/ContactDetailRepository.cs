@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MyContacts.Business.Repository.IRepository;
-using MyContacts.DataAccess;
-using MyContacts.DataAccess.Data;
-using MyContacts.Models;
+using MyContacts.DataAccessLayer.ContactInformation;
+using MyContacts.DataAccessLayer.DataAccess;
+using MyContacts.Models.ContactInformationDTO;
 
 namespace MyContacts.Business.Repository
 {
@@ -35,7 +35,7 @@ namespace MyContacts.Business.Repository
             return _mapper.Map<List<ContactDetail>, List<ContactDetailDTO>>(obj);
             */
 
-            return _mapper.Map<IEnumerable<ContactDetail>, IEnumerable<ContactDetailDTO>>(_db.ContactDetails.Include(x => x.Label).Include(x => x.ContactNumbers));
+            return _mapper.Map<IEnumerable<ContactDetail>, IEnumerable<ContactDetailDTO>>(_db.ContactDetails.Include(x => x.Label).Include(x => x.PhoneNumbers));
         }
 
         public async Task<ContactDetailDTO> Create(ContactDetailDTO objDTO)
@@ -68,7 +68,7 @@ namespace MyContacts.Business.Repository
 
         public async Task<int> Delete(int Id)
         {
-            var obj = await _db.ContactDetails.FirstOrDefaultAsync(x => x.Id == Id);
+            var obj = await _db.ContactDetails.Include(x => x.PhoneNumbers).FirstOrDefaultAsync(x => x.Id == Id);
             if (obj != null)
             {
                 _db.ContactDetails.Remove(obj);

@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyContacts.Business.Repository.IRepository;
-using MyContacts.Models;
+using MyContacts.Models.ContactInformationDTO;
+using MyContacts.Models.Shared;
 
 namespace MyContacts.Server.Controllers
 {

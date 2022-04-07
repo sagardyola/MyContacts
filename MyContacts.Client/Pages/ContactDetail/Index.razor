@@ -2,7 +2,7 @@
 @inject IContactDetailService _contactService
 @inject IJSRuntime _jsRuntime
 
-@using MyContacts.Models
+@using MyContacts.Models.ContactInformationDTO
 
 <_DeleteConfirmation IsParentComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
 <h3>Contacts</h3>
@@ -28,12 +28,12 @@
 						<td>@detail.FirstName</td>
 						<td>@detail.LastName</td>
 						<td>
-							@foreach (var num in detail.ContactNumbers)
+							@foreach (var num in detail.PhoneNumbers)
 							{
-								<h6><b>@num.Title:</b> @num.Number</h6>
+								<h6><b>@num.Title:</b> @num.ContactNumber</h6>
 							}
 						</td>
-						<td>@detail.Label.LabelName</td>
+						<td>@detail.Label.Title</td>
 						<td><a href="/details/@detail.Id">Read Notes...</a></td>
 						<td>
 							<NavLink href="@($"contacts/edit/{detail.Id}")" class="btn btn-primary">Edit</NavLink>

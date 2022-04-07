@@ -1,12 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyContacts.Models
+namespace MyContacts.Models.ContactInformationDTO
 {
     public class LabelDTO
     {
         public int Id { get; set; }
         //[Required(ErrorMessage = "Please enter the Label name")]
-        public string LabelName { get; set; }
-
+        public string Title { get; set; }
     }
 }

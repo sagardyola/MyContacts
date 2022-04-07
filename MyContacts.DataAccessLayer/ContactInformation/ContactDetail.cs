@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MyContacts.DataAccess
+namespace MyContacts.DataAccessLayer.ContactInformation
 {
     public class ContactDetail
     {
@@ -21,6 +21,6 @@ namespace MyContacts.DataAccess
         [ForeignKey("LabelId")]
         public Label? Label { get; set; }
 
-        public ICollection<ContactNumber>? ContactNumbers { get; set; }
+        public ICollection<PhoneNumber>? PhoneNumbers { get; set; }
     }
 }

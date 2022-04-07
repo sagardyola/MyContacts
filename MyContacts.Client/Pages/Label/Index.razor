@@ -1,8 +1,8 @@
 ﻿@page "/labels"
+@using MyContacts.Models.ContactInformationDTO
 @inject ILabelService _labelService
 @inject IJSRuntime _jsRuntime
 
-@using MyContacts.Models
 
 <_DeleteConfirmation IsParentComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
 <h3>Labels</h3>
@@ -22,7 +22,7 @@
 				@foreach(var label in Labels)
 				{
 					<tr>
-						<td>@label.LabelName</td>
+						<td>@label.Title</td>
 						<td>
 							<NavLink href="@($"labels/edit/{label.Id}")" class="btn btn-primary">Edit</NavLink>
 							<button class="btn btn-danger" @onclick="() => HandleDelete(label.Id)">Delete</button>

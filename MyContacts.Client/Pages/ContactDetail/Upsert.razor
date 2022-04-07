@@ -1,5 +1,6 @@
 ﻿@page "/contacts/create"
 @page "/contacts/edit/{id:int}"
+@using MyContacts.Models.ContactInformationDTO
 
 @inject IContactDetailService _contactDetailService
 @inject ILabelService _labelService
@@ -32,7 +33,7 @@ else
 		<InputSelect @bind-Value="Contact.LabelId" class="form-control">
 			@foreach (var _label in Labels)
 			{
-				<option value="@_label.Id">@_label.LabelName</option>
+				<option value="@_label.Id">@_label.Title</option>
 			}
 		</InputSelect>
 		<ValidationMessage For="() => Contact.LabelId"></ValidationMessage>

@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
-namespace MyContacts.Models
+namespace MyContacts.Models.ContactInformationDTO
 {
     public class ContactDetailDTO
     {
@@ -20,6 +19,6 @@ namespace MyContacts.Models
         //[JsonIgnore]
         public LabelDTO? Label { get; set; }
         //[JsonIgnore]
-        public ICollection<ContactNumberDTO>? ContactNumbers { get; set; }
+        public ICollection<PhoneNumberDTO>? PhoneNumbers { get; set; }
     }
 }

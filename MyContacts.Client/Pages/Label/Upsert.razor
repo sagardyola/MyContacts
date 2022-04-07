@@ -1,5 +1,6 @@
 ﻿@page "/labels/create"
 @page "/labels/edit/{id:int}"
+@using MyContacts.Models.ContactInformationDTO
 
 @inject ILabelService _labelService
 @inject NavigationManager _navigationManager
@@ -17,8 +18,8 @@ else
 	<ValidationSummary />
 	<div class="form-group">
 		<label>Label Name</label>
-		<InputText @bind-Value="Label.LabelName" class="form-control"></InputText>
-		<ValidationMessage For="() => Label.LabelName"></ValidationMessage>
+		<InputText @bind-Value="Label.Title" class="form-control"></InputText>
+		<ValidationMessage For="() => Label.Title"></ValidationMessage>
 	</div>
 	<div class="form-group">
 		<button class="btn btn-primary">@Title</button>

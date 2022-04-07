@@ -1,4 +1,4 @@
-﻿namespace MyContacts.Models
+﻿namespace MyContacts.Models.Shared
 {
     public class ErrorModelDTO
     {

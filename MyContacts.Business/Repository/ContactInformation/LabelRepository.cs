@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MyContacts.Business.Repository.IRepository;
-using MyContacts.DataAccess;
-using MyContacts.DataAccess.Data;
-using MyContacts.Models;
+using MyContacts.DataAccessLayer.ContactInformation;
+using MyContacts.DataAccessLayer.DataAccess;
+using MyContacts.Models.ContactInformationDTO;
 
 namespace MyContacts.Business.Repository
 {
@@ -42,7 +42,7 @@ namespace MyContacts.Business.Repository
             var objFromDb = await _db.Labels.FirstOrDefaultAsync(u => u.Id == objDTO.Id);
             if (objFromDb != null)
             {
-                objFromDb.LabelName = objDTO.LabelName;
+                objFromDb.Title = objDTO.Title;
 
                 _db.Labels.Update(objFromDb);
                 await _db.SaveChangesAsync();

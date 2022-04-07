@@ -1,4 +1,4 @@
-﻿using MyContacts.Models;
+﻿using MyContacts.Models.ContactInformationDTO;
 
 namespace MyContacts.Business.Repository.IRepository
 {

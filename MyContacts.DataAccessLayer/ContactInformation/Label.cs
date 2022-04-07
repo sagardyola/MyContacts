@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyContacts.DataAccess
+namespace MyContacts.DataAccessLayer.ContactInformation
 {
     public class Label
     {
         [Key]
         public int Id { get; set; }
-        public string LabelName { get; set; }
+        public string Title { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyContacts.Business.Repository;
 using MyContacts.Business.Repository.IRepository;
-using MyContacts.DataAccess.Data;
+using MyContacts.DataAccessLayer.DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IContactDetailRepository, ContactDetailRepository>();
 builder.Services.AddScoped<ILabelRepository, LabelRepository>();
-builder.Services.AddScoped<IContactNumberRepository, ContactNumberRepository>();
+builder.Services.AddScoped<IPhoneNumberRepository, PhoneNumberRepository>();
 
 builder.Services.AddCors(o => o.AddPolicy("MyContacts", builder =>
 {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MyContacts.DataAccessLayer.ContactInformation;
 
-namespace MyContacts.DataAccess.Data
+namespace MyContacts.DataAccessLayer.DataAccess
 {
     public class ApplicationDbContext : DbContext
     {
@@ -10,11 +11,16 @@ namespace MyContacts.DataAccess.Data
         }
 
         public DbSet<ContactDetail> ContactDetails { get; set; }
-        public DbSet<ContactNumber> ContactNumbers { get; set; }
+        public DbSet<PhoneNumber> PhoneNumbers { get; set; }
         public DbSet<Label> Labels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ContactDetail>()
+                .HasMany<PhoneNumber>(x => x.PhoneNumbers)
+                .WithOne(x => x.ContactDetail)
+                .OnDelete(DeleteBehavior.ClientCascade);
+
             /*
             // configures one-to-many relationship
             modelBuilder.Entity<ContactDetail>()
@@ -80,22 +86,22 @@ namespace MyContacts.DataAccess.Data
                 }
             );
 
-            modelBuilder.Entity<ContactNumber>().HasData(
-                new ContactNumber { Id = 1, Title = "Mobile", Number = "+447470855303", ContactDetailId = 1 },
-                new ContactNumber { Id = 2, Title = "Home", Number = "+97715536178", ContactDetailId = 1 },
-                new ContactNumber { Id = 3, Title = "Mobile (Nepal)", Number = "+9779841751478", ContactDetailId = 1 },
-                new ContactNumber { Id = 4, Title = "Mobile", Number = "+447727353665", ContactDetailId = 2 },
-                new ContactNumber { Id = 5, Title = "Home", Number = "+97714983404", ContactDetailId = 2 },
-                new ContactNumber { Id = 6, Title = "Mobile", Number = "+9779851085563", ContactDetailId = 3 },
-                new ContactNumber { Id = 7, Title = "Mobile", Number = "+9779841520663", ContactDetailId = 4 },
-                new ContactNumber { Id = 8, Title = "Mobile", Number = "+9779843335072", ContactDetailId = 5 },
-                new ContactNumber { Id = 9, Title = "Mobile", Number = "+9779810357026", ContactDetailId = 6 }
+            modelBuilder.Entity<PhoneNumber>().HasData(
+                new PhoneNumber { Id = 1, Title = "Mobile", ContactNumber = "+447470855303", ContactDetailId = 1 },
+                new PhoneNumber { Id = 2, Title = "Home", ContactNumber = "+97715536178", ContactDetailId = 1 },
+                new PhoneNumber { Id = 3, Title = "Mobile (Nepal)", ContactNumber = "+9779841751478", ContactDetailId = 1 },
+                new PhoneNumber { Id = 4, Title = "Mobile", ContactNumber = "+447727353665", ContactDetailId = 2 },
+                new PhoneNumber { Id = 5, Title = "Home", ContactNumber = "+97714983404", ContactDetailId = 2 },
+                new PhoneNumber { Id = 6, Title = "Mobile", ContactNumber = "+9779851085563", ContactDetailId = 3 },
+                new PhoneNumber { Id = 7, Title = "Mobile", ContactNumber = "+9779841520663", ContactDetailId = 4 },
+                new PhoneNumber { Id = 8, Title = "Mobile", ContactNumber = "+9779843335072", ContactDetailId = 5 },
+                new PhoneNumber { Id = 9, Title = "Mobile", ContactNumber = "+9779810357026", ContactDetailId = 6 }
             );
 
             modelBuilder.Entity<Label>().HasData(
-                new Label { Id = 1, LabelName = "Family" },
-                new Label { Id = 2, LabelName = "School Friends" },
-                new Label { Id = 3, LabelName = "Colleagues" }
+                new Label { Id = 1, Title = "Family" },
+                new Label { Id = 2, Title = "School Friends" },
+                new Label { Id = 3, Title = "Colleagues" }
             );
         }
     }
