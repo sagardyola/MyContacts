@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyContacts.Business\MyContacts.Business.csproj" />
-    <ProjectReference Include="..\MyContacts.DataAccess\MyContacts.DataAccessLayer.csproj" />
     <ProjectReference Include="..\MyContacts.Models\MyContacts.Models.csproj" />
   </ItemGroup>
 

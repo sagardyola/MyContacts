@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyContacts.Business.Repository.IRepository;
 using MyContacts.DataAccessLayer.ContactInformation;
-using MyContacts.DataAccessLayer.DataAccess;
+using MyContacts.DataAccessLayer.DAL;
 using MyContacts.Models.ContactInformationDTO;
 
 namespace MyContacts.Business.Repository
