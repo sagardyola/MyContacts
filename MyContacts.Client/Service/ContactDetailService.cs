@@ -46,7 +46,9 @@ namespace MyContacts.Client.Service
                 return result;
             }
 
-            return new List<ContactDetailDTO>();
+            var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(content);
+            throw new Exception(errorModel.ErrorMessage);
+            //return new List<ContactDetailDTO>();
         }
 
         public async Task<ContactDetailDTO> Create(ContactDetailDTO objDTO)
@@ -56,13 +58,12 @@ namespace MyContacts.Client.Service
             var response = await _httpClient.PostAsync("api/ContactDetail/Create", bodyContent);
             string responseResult = response.Content.ReadAsStringAsync().Result;
 
-            if (response.IsSuccessStatusCode)
-            {
-                var result = JsonConvert.DeserializeObject<ContactDetailDTO>(responseResult);
-                return result;
-            }
+            if (response.IsSuccessStatusCode) return JsonConvert.DeserializeObject<ContactDetailDTO>(responseResult);
 
-            return new ContactDetailDTO();
+            var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(responseResult);
+            throw new Exception(errorModel.ErrorMessage);
+
+            //return new ContactDetailDTO();
         }
 
         public async Task<ContactDetailDTO> Edit(ContactDetailDTO objDTO)
@@ -84,18 +85,13 @@ namespace MyContacts.Client.Service
         public async Task Delete(int Id)
         {
             var response = await _httpClient.DeleteAsync($"api/ContactDetail/{Id}");
-            /*
-            if (response.IsSuccessStatusCode)
-            {
-                var detail = JsonConvert.DeserializeObject<ContactDetailDTO>(content);
-                return detail;
-            }
-            else
-            {
-                var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(content);
-                throw new Exception(errorModel.ErrorMessage);
-            }
-            */
+            string responseResult = response.Content.ReadAsStringAsync().Result;
+
+            if (response.IsSuccessStatusCode) return;
+
+            var errorModel = JsonConvert.DeserializeObject<ErrorModelDTO>(responseResult);
+            throw new Exception(errorModel.ErrorMessage);
+
         }
     }
 }

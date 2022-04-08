@@ -65,36 +65,50 @@ else
 	private int DeleteCategoryId { get; set; } = 0;
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await LoadContacts();
-        }
-    }
+	{
+		if (firstRender)
+		{
+			await LoadContacts();
+		}
+	}
 
 	private async Task LoadContacts()
 	{
 		IsLoading=true;
-        StateHasChanged();
-		Contacts = await _contactService.GetAll();
+		StateHasChanged();
+		try
+		{
+			Contacts = await _contactService.GetAll();
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine(ex);
+		}
 		IsLoading = false;
-        StateHasChanged();
+		StateHasChanged();
 	}
 
 	private void HandleDelete(int Id)
-    {
-        DeleteCategoryId=Id;
-        _jsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
-    }
+	{
+		DeleteCategoryId=Id;
+		_jsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
+	}
 
-    public async Task ConfirmDelete_Click(bool isConfirmed)
-    {
-        IsLoading=true;
-        if(isConfirmed && DeleteCategoryId!=0)
-        {
-            //delete
-            await _contactService.Delete(DeleteCategoryId);
-            await LoadContacts();
+	public async Task ConfirmDelete_Click(bool isConfirmed)
+	{
+		IsLoading=true;
+		if(isConfirmed && DeleteCategoryId!=0)
+		{
+			//delete
+			try
+			{
+				await _contactService.Delete(DeleteCategoryId);
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+			await LoadContacts();
             await _jsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
         }
         IsLoading=false;

@@ -108,14 +108,25 @@ else
 	private async void UpsertContact()
 	{
 		Contact.LabelId = LabelValue;
-		if (Contact.Id == 0)
+
+		try
 		{
-			await _contactDetailService.Create(Contact);
+			if (Contact.Id == 0)
+			{
+				await _contactDetailService.Create(Contact);
+			}
+			else
+			{
+				await _contactDetailService.Edit(Contact);
+			}
+
+			_navigationManager.NavigateTo("contacts");
+
 		}
-		else
+		catch (Exception ex)
 		{
-			await _contactDetailService.Edit(Contact);
+			Console.WriteLine(ex);
 		}
-		_navigationManager.NavigateTo("contacts");
+
 	}
 }

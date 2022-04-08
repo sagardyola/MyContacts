@@ -20,7 +20,18 @@ namespace MyContacts.Server.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _detailRepository.GetAll());
+            try
+            {
+                return Ok(await _detailRepository.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ErrorModelDTO()
+                {
+                    ErrorMessage = "Records could not be loaded...",
+                    StatusCode = StatusCodes.Status400BadRequest
+                });
+            }
         }
 
         [HttpGet("{Id:int}")]
@@ -51,15 +62,35 @@ namespace MyContacts.Server.Controllers
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] ContactDetailDTO objDTO)
         {
-            var result = await _detailRepository.Create(objDTO);
-            return Ok(result);
+            try
+            {
+                return Ok(await _detailRepository.Create(objDTO));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ErrorModelDTO()
+                {
+                    ErrorMessage = "Error saving record",
+                    StatusCode = StatusCodes.Status404NotFound
+                });
+            }
         }
 
         [HttpPut("{objDTO}")]
         public async Task<IActionResult> Edit([FromBody] ContactDetailDTO objDTO)
         {
-            var result = await _detailRepository.Edit(objDTO);
-            return Ok(result);
+            try
+            {
+                return Ok(await _detailRepository.Edit(objDTO));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ErrorModelDTO()
+                {
+                    ErrorMessage = "Error updating record",
+                    StatusCode = StatusCodes.Status404NotFound
+                });
+            }
         }
 
         [HttpDelete("{Id:int}")]
@@ -71,7 +102,7 @@ namespace MyContacts.Server.Controllers
                 {
                     return BadRequest(new ErrorModelDTO()
                     {
-                        ErrorMessage = "Invalid Id",
+                        ErrorMessage = "Invalid Id...",
                         StatusCode = StatusCodes.Status400BadRequest
                     });
                 }
@@ -81,7 +112,7 @@ namespace MyContacts.Server.Controllers
                 {
                     return BadRequest(new ErrorModelDTO()
                     {
-                        ErrorMessage = "Id Couldnot be found",
+                        ErrorMessage = "The record could not be deleted...",
                         StatusCode = StatusCodes.Status404NotFound
                     });
                 }
@@ -90,7 +121,11 @@ namespace MyContacts.Server.Controllers
             }
             catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting data");
+                return BadRequest(new ErrorModelDTO()
+                {
+                    ErrorMessage = "The record could not be deleted...",
+                    StatusCode = StatusCodes.Status404NotFound
+                });
             }
         }
     }

@@ -29,13 +29,10 @@ namespace MyContacts.Business.Repository
 
         public async Task<IEnumerable<ContactDetailDTO>> GetAll()
         {
-            /*
-            var obj = await _db.ContactDetails.Include(x => x.Label).ToListAsync();
-            //.Include(x => x.ContactNumbers).ToListAsync();
-            return _mapper.Map<List<ContactDetail>, List<ContactDetailDTO>>(obj);
-            */
-
-            return _mapper.Map<IEnumerable<ContactDetail>, IEnumerable<ContactDetailDTO>>(_db.ContactDetails.Include(x => x.Label).Include(x => x.PhoneNumbers));
+            //return _mapper.Map<IEnumerable<ContactDetail>, IEnumerable<ContactDetailDTO>>(_db.ContactDetails.Include(x => x.Label).Include(x => x.PhoneNumbers));
+            
+            var obj = await _db.ContactDetails.Include(x => x.Label).Include(x => x.PhoneNumbers).ToListAsync();
+            return _mapper.Map<IEnumerable<ContactDetail>, IEnumerable<ContactDetailDTO>>(obj);
         }
 
         public async Task<ContactDetailDTO> Create(ContactDetailDTO objDTO)
