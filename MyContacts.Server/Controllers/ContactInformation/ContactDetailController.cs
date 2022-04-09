@@ -24,7 +24,7 @@ namespace MyContacts.Server.Controllers
         public async Task<IActionResult> GetAll()
         {
             string filePath = _config.GetValue<string>("FilePaths:ErrorMessages");
-            List<ErrorModelDTO> item = JSONUtils.Read<ErrorModelDTO>(filePath);
+            List<ErrorModelDTO> item = FileUtils.ReadJSONFile<ErrorModelDTO>(filePath);
 
             try
             {
