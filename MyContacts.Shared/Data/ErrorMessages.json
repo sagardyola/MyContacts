@@ -1,0 +1,10 @@
+[
+  {
+    "StatusCode": 400,
+    "ErrorMessage": "Bad Request"
+  },
+  {
+    "StatusCode": 404,
+    "ErrorMessage": "Not Found"
+  }
+]

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyContacts.Business.Repository.IRepository;
 using MyContacts.Models.ContactInformationDTO;
 using MyContacts.Models.Shared;
+using SD.Common.Utilities;
 
 namespace MyContacts.Server.Controllers
 {
@@ -10,16 +11,21 @@ namespace MyContacts.Server.Controllers
     [ApiController]
     public class ContactDetailController : ControllerBase
     {
-
         private readonly IContactDetailRepository _detailRepository;
-        public ContactDetailController(IContactDetailRepository detailRepository)
+        private readonly IConfiguration _config;
+
+        public ContactDetailController(IContactDetailRepository detailRepository, IConfiguration config)
         {
             _detailRepository = detailRepository;
+            _config = config;
         }
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
+            string filePath = _config.GetValue<string>("FilePaths:ErrorMessages");
+            List<ErrorModelDTO> item = JSONUtils.Read<ErrorModelDTO>(filePath);
+
             try
             {
                 return Ok(await _detailRepository.GetAll());

@@ -13,10 +13,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.3" />
+    <PackageReference Include="SD.Common" Version="2022.4.9.2230" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MyContacts.Business\MyContacts.Business.csproj" />
+    <ProjectReference Include="..\MyContacts.Shared\MyContacts.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyContacts.Business", "MyCo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyContacts.Models", "MyContacts.Models\MyContacts.Models.csproj", "{26FF0F44-885C-45F1-9B6A-90DC32B79A2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyContacts.DataAccessLayer", "MyContacts.DataAccessLayer\MyContacts.DataAccessLayer.csproj", "{64A13163-899D-445D-9FFB-68C6BD33EDFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyContacts.DataAccessLayer", "MyContacts.DataAccessLayer\MyContacts.DataAccessLayer.csproj", "{64A13163-899D-445D-9FFB-68C6BD33EDFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyContacts.Shared", "MyContacts.Shared\MyContacts.Shared.csproj", "{AE86433F-6C36-485B-86B3-8B65BD87CFCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{64A13163-899D-445D-9FFB-68C6BD33EDFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64A13163-899D-445D-9FFB-68C6BD33EDFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64A13163-899D-445D-9FFB-68C6BD33EDFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE86433F-6C36-485B-86B3-8B65BD87CFCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE86433F-6C36-485B-86B3-8B65BD87CFCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE86433F-6C36-485B-86B3-8B65BD87CFCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE86433F-6C36-485B-86B3-8B65BD87CFCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
