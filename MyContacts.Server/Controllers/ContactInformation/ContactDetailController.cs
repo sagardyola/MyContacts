@@ -13,19 +13,21 @@ namespace MyContacts.Server.Controllers
     {
         private readonly IContactDetailRepository _detailRepository;
         private readonly IConfiguration _config;
+        private string _filePath;
+        List<ErrorModelDTO> statusCodes = new List<ErrorModelDTO>();
 
         public ContactDetailController(IContactDetailRepository detailRepository, IConfiguration config)
         {
             _detailRepository = detailRepository;
             _config = config;
+            _filePath = _config.GetValue<string>("FilePaths:ErrorMessages");
+            
+            statusCodes = _filePath.ReadJSONFile<ErrorModelDTO>();
         }
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            string filePath = _config.GetValue<string>("FilePaths:ErrorMessages");
-            List<ErrorModelDTO> item = FileUtils.ReadJSONFile<ErrorModelDTO>(filePath);
-
             try
             {
                 return Ok(await _detailRepository.GetAll());
