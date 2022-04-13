@@ -9,25 +9,23 @@ namespace MyContacts.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ContactDetailController : ControllerBase
+    public class ContactDetailController : MyContactsControllerBase
     {
         private readonly IContactDetailRepository _detailRepository;
-        private readonly IConfiguration _config;
-        private string _filePath;
-        List<ErrorModelDTO> statusCodes = new List<ErrorModelDTO>();
+        private List<ErrorModelDTO> _statusCodes = new List<ErrorModelDTO>();
 
-        public ContactDetailController(IContactDetailRepository detailRepository, IConfiguration config)
+        public ContactDetailController(IContactDetailRepository detailRepository, IConfiguration config) : base(config)
         {
             _detailRepository = detailRepository;
-            _config = config;
-            _filePath = _config.GetValue<string>("FilePaths:ErrorMessages");
-            
-            statusCodes = _filePath.ReadJSONFile<ErrorModelDTO>();
+            _statusCodes = new MyContactsControllerBase(config).statusCodes;
         }
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
+
+            
+
             try
             {
                 return Ok(await _detailRepository.GetAll());

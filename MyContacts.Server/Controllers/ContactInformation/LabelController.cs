@@ -8,12 +8,15 @@ namespace MyContacts.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LabelController : ControllerBase
+    public class LabelController : MyContactsControllerBase
     {
         private readonly ILabelRepository _labelRepository;
-        public LabelController(ILabelRepository labelRepository)
+        private List<ErrorModelDTO> _statusCodes = new List<ErrorModelDTO>();
+
+        public LabelController(ILabelRepository labelRepository, IConfiguration config) : base(config)
         {
             _labelRepository = labelRepository;
+            _statusCodes = new MyContactsControllerBase(config).statusCodes;
         }
 
         [HttpGet]
