@@ -6,10 +6,7 @@ namespace MyContacts.DataAccessLayer.DAL
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-
-        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<ContactDetail> ContactDetails { get; set; }
         public DbSet<PhoneNumber> PhoneNumbers { get; set; }
@@ -36,13 +33,9 @@ namespace MyContacts.DataAccessLayer.DAL
             //            .HasMany(c => c.ContactNumbers)
             //            .WithOne(e => e.ContactDetail);
 
-
-
-
             List<string> _files = new List<string>();
-
-            string _dataDir = System.IO.Path.GetFullPath(@"..\MyContacts.DataAccessLayer\_TestData");
-            _files.AddRange(Directory.GetFiles(_dataDir, "*.json"));
+            string _filePath = Path.GetFullPath(@"..\MyContacts.Shared\Data\TestData");
+            _files.AddRange(Directory.GetFiles(_filePath, "*.json"));
 
             foreach (var _file in _files)
             {

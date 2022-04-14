@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyContacts.Business.Repository.IRepository;
 using MyContacts.Models.ContactInformationDTO;
 using MyContacts.Models.Shared;
-using SD.Common.Utilities;
 
 namespace MyContacts.Server.Controllers
 {
@@ -23,9 +21,6 @@ namespace MyContacts.Server.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-
-            
-
             try
             {
                 return Ok(await _detailRepository.GetAll());
